@@ -1,4 +1,5 @@
 using EmployeeManagement.Data;
+using EmployeeManagement.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 
@@ -24,6 +25,8 @@ namespace EmployeeManagement
                 });
             });
 
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -42,7 +45,9 @@ namespace EmployeeManagement
                 });
             }
 
-            app.UseCors();
+            app.UseCors("MyCors");
+
+            app.MapControllers();
 
             app.Run();
         }
