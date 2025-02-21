@@ -18,7 +18,18 @@ export class EmployeeTableComponent {
   ngOnInit() {
     this.employeeService.getEmployees().subscribe((data: Employee[]) => {
       this.employees = data;
-      console.log(data);
+      console.log(data);  
+    });
+  }
+
+  deleteEmployee(id: number) : void {
+    this.employeeService.deleteEmployee(id).subscribe({
+      next: (response) => {
+        this.employees = this.employees.filter(employee => employee.id !== id);
+      },
+      error: (err) => {
+        console.error('Error during the process: ', err);
+      }
     });
   }
 
